@@ -17,7 +17,7 @@ class UsuarioWebTest {
     private WebDriver driver;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new"); // Usar modo headless para entorno CI
         options.addArguments("--no-sandbox");

@@ -31,14 +31,13 @@ jobs:
       run: mvn clean test jacoco:report    
 
     - name: Análisis de calidad con SonarCloud
-      uses: SonarSource/sonarcloud-github-action@v2
-      with:
-        args: >
-          -Dsonar.projectKey=leftama
-          -Dsonar.organization=Cristián R. Araya Salazar
+      run: |
+        mvn sonar:sonar \
+          -Dsonar.projectKey=healthtrack \
+          -Dsonar.organization=tu-organizacion \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
           -Dsonar.java.binaries=target
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 
     - name: Iniciar la aplicación en segundo plano

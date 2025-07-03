@@ -11,7 +11,6 @@
 # === Reportes de pruebas y cobertura ===
 *.log
 *.txt
-*.xml
 jacoco.exec
 /site/
 

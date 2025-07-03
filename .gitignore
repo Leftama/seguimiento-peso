@@ -1,0 +1,43 @@
+# === Maven ===
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# === Archivos binarios y compilados ===
+*.class
+*.jar
+*.war
+*.ear
+
+# === Reportes de pruebas y cobertura ===
+*.log
+*.txt
+*.xml
+jacoco.exec
+/site/
+
+# === Configuración de IDEs ===
+/.idea/
+/.vscode/
+/*.iml
+.project
+.classpath
+.settings/
+
+# === Archivos temporales ===
+*.sh~
+*~
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# === JMeter ===
+jmeter.log
+
+# === SonarQube local ===
+/.sonar/
+/scannerwork/
+
+# === Archivos de entorno y secretos ===
+*.env
+.env.*

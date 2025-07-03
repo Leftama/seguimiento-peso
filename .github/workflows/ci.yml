@@ -1,0 +1,54 @@
+name: CI - HealthTrack
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_HOST_URL: "http://localhost:9000"
+
+    steps:
+    - name: Checkout código fuente
+      uses: actions/checkout@v4
+
+    - name: Instalar Java 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Instalar Maven
+      run: sudo apt-get install -y maven
+
+    - name: Pruebas unitarias con cobertura
+      run: mvn clean test jacoco:report
+
+    - name: Pruebas funcionales
+      run: mvn test -Pfuncionales
+
+    - name: Análisis de calidad con SonarQube
+      run: |
+        mvn sonar:sonar \
+          -Dsonar.projectKey=healthtrack \
+          -Dsonar.host.url=${{ env.SONAR_HOST_URL }} \
+          -Dsonar.login=${{ env.SONAR_TOKEN }}
+
+    - name: Iniciar la aplicación en segundo plano
+      run: mvn exec:java -Dexec.mainClass="com.healthtrack.App" &
+    
+    - name: Esperar a que el servidor inicie
+      run: sleep 5
+
+    - name: Ejecutar prueba de rendimiento con JMeter
+      run: |
+        sudo apt-get install -y wget unzip
+        wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.zip
+        unzip apache-jmeter-5.6.3.zip
+        apache-jmeter-5.6.3/bin/jmeter -n -t tests/jmeter/prueba-rendimiento-actualizar.jmx -l results.jtl

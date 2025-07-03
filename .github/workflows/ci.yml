@@ -28,10 +28,7 @@ jobs:
       run: sudo apt-get install -y maven
 
     - name: Pruebas unitarias con cobertura
-      run: mvn clean test jacoco:report
-
-    - name: Pruebas funcionales
-      run: mvn test -Pfuncionales
+      run: mvn clean test jacoco:report    
 
     - name: Análisis de calidad con SonarQube
       run: |

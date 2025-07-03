@@ -25,7 +25,7 @@ class UsuarioWebTest {
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-gpu"); // Aunque ya no es obligatorio, puede ayudar
         options.addArguments("--disable-extensions");
-        options.addArguments("--user-data-dir=/tmp/selenium"); // Usar un directorio de usuario temporal
+        
 
         // Generar un directorio temporal único para cada sesión
         Path userDataDir = null;

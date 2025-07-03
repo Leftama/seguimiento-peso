@@ -30,12 +30,16 @@ jobs:
     - name: Pruebas unitarias con cobertura
       run: mvn clean test jacoco:report    
 
-    - name: Análisis de calidad con SonarQube
-      run: |
-        mvn sonar:sonar \
-          -Dsonar.projectKey=healthtrack \
-          -Dsonar.host.url=${{ env.SONAR_HOST_URL }} \
-          -Dsonar.login=${{ env.SONAR_TOKEN }}
+    - name: Análisis de calidad con SonarCloud
+      uses: SonarSource/sonarcloud-github-action@v2
+      with:
+        args: >
+          -Dsonar.projectKey=leftama
+          -Dsonar.organization=Cristián R. Araya Salazar
+          -Dsonar.java.binaries=target
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 
     - name: Iniciar la aplicación en segundo plano
       run: mvn exec:java -Dexec.mainClass="com.healthtrack.App" &

@@ -27,15 +27,7 @@ class UsuarioWebTest {
         options.addArguments("--disable-extensions");
         
 
-        // Generar un directorio temporal único para cada sesión
-        Path userDataDir = null;
-        try {
-            userDataDir = Files.createTempDirectory("selenium");
-            options.addArguments("--user-data-dir=" + userDataDir.toAbsolutePath().toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+       
         // Requiere tener ChromeDriver instalado y en el PATH
         driver = new ChromeDriver();
     }
@@ -61,7 +53,10 @@ class UsuarioWebTest {
 
     @AfterEach
     void tearDown() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
+
 }
 

@@ -3,6 +3,8 @@ package com.healthtrack;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,6 +14,15 @@ class UsuarioWebTest {
 
     @BeforeEach
     void setUp() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new"); // Usar modo headless para entorno CI
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--disable-gpu"); // Aunque ya no es obligatorio, puede ayudar
+        options.addArguments("--disable-extensions");
+        options.addArguments("--user-data-dir=/tmp/selenium"); // Usar un directorio de usuario temporal
+
         // Requiere tener ChromeDriver instalado y en el PATH
         driver = new ChromeDriver();
     }

@@ -26,7 +26,9 @@ class UsuarioWebTest {
         options.addArguments("--disable-gpu"); // Aunque ya no es obligatorio, puede ayudar
         options.addArguments("--disable-extensions");
         
-
+        // Define un directorio temporal único
+        Path tempUserDataDir = Files.createTempDirectory("chrome-user-data");
+        options.addArguments("--user-data-dir=" + tempUserDataDir.toAbsolutePath());
        
         // Requiere tener ChromeDriver instalado y en el PATH
         driver = new ChromeDriver();
